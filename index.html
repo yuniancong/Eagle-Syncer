@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 顶部栏 -->
+<div class="header">
+    <h1><span class="icon">🔄</span> Eagle 同步器</h1>
+    <div class="status-badge">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">未启动</span>
+    </div>
+</div>
+
+<!-- 模式选择 -->
+<div class="mode-section">
+    <button class="mode-btn" id="btnHost" onclick="setMode('host')">
+        <span class="emoji">📡</span>
+        <div>
+            <div>主机模式</div>
+            <div style="font-size:11px;color:var(--text-secondary)">提供文件给其他设备</div>
+        </div>
+    </button>
+    <button class="mode-btn" id="btnClient" onclick="setMode('client')">
+        <span class="emoji">📥</span>
+        <div>
+            <div>客户端模式</div>
+            <div style="font-size:11px;color:var(--text-secondary)">从主机拉取文件</div>
+        </div>
+    </button>
+</div>
+
+<!-- 设备信息 -->
+<div class="device-info" id="deviceInfo" style="display:none">
+    <div>
+        <span class="label">设备：</span>
+        <span class="value" id="deviceName">--</span>
+    </div>
+    <div>
+        <span class="label">IP：</span>
+        <span class="value" id="localIP">检测中...</span>
+    </div>
+    <div>
+        <span class="label">端口：</span>
+        <span class="value" id="localPort">--</span>
+    </div>
+    <div id="connectArea" style="display:none">
+        <div class="connect-input">
+            <input type="text" id="hostIPInput" placeholder="输入主机 IP:端口">
+            <button class="btn-small" onclick="connectToHost()">连接</button>
+        </div>
+    </div>
+</div>
+
+<!-- 发现的设备 -->
+<div class="peer-list" id="peerList" style="display:none"></div>
+
+<!-- 目标文件夹选择（仅客户端模式） -->
+<div class="target-folder-area" id="targetFolderArea" style="display:none">
+    <span class="target-label">📂 同步到：</span>
+    <select class="target-select" id="targetFolderSelect" onchange="onTargetFolderChange(this.value)">
+        <option value="">📁 Eagle 库根目录</option>
+    </select>
+</div>
+
+<!-- 库路径 -->
+<div class="library-path" id="libraryPath" style="display:none">
+    <span class="path-icon">📁</span>
+    <span class="path-text" id="libPathText">正在检测...</span>
+</div>
+
+<!-- 搜索/全选工具栏 -->
+<div class="tree-toolbar" id="treeToolbar" style="display:none">
+    <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索文件夹..." oninput="filterTree(this.value)">
+    <button class="btn-small" onclick="toggleSelectAll()">全选</button>
+    <button class="btn-small" onclick="collapseAll()">折叠</button>
+</div>
+
+<!-- 文件夹树 -->
+<div class="tree-container" id="treeContainer">
+    <div class="empty-state" id="emptyState">
+        <div class="emoji">☝️</div>
+        <div><b>选择模式开始同步</b></div>
+        <p>选择"主机模式"分享文件，或"客户端模式"接收文件</p>
+    </div>
+</div>
+
+<!-- 底部操作栏 -->
+<div class="footer" id="footer" style="display:none">
+    <div class="footer-stats">
+        <span id="selectedStats">已选择 0 个文件夹</span>
+        <span id="syncDirection"></span>
+    </div>
+    <button class="sync-btn" id="syncBtn" onclick="startSync()" disabled>
+        <span>🔄</span> <span id="syncBtnText">开始同步</span>
+    </button>
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="log-panel" id="logPanel"></div>
+</div>
+
+<script src="js/plugin.js"></script>
+</body>
+</html>

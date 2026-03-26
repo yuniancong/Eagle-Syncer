@@ -1,0 +1,17 @@
+{
+    "id": "9eb69192-4d0a-42fd-9133-e45e4aad1314",
+    "version": "1.0.0",
+    "platform": "all",
+    "arch": "all",
+    "name": "Eagle同步器",
+    "logo": "/logo.png",
+    "keywords": ["sync", "同步", "LAN"],
+    "devTools": true,
+    "main": {
+        "url": "index.html",
+        "width": 720,
+        "height": 600,
+        "minWidth": 600,
+        "minHeight": 500
+    }
+}
